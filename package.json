@@ -1,0 +1,34 @@
+{
+  "name": "planter",
+  "version": "0.9.0",
+  "description": "A HTML, CSS, and JS boilerplate for creatives.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "css"
+  ],
+  "author": "Matthew Alicea",
+  "license": "MIT",
+  "repository": "https://github.com/matthew-ia/planter.git",
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "acorn": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-html-import": "0.0.2",
+    "gulp-pretty-html": "^2.0.10",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "interactjs": "^1.10.0",
+    "node-sass": "^4.14.1"
+  }
+}

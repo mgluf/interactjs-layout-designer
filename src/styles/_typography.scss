@@ -1,0 +1,30 @@
+
+//== Main Type styling
+//
+//##
+
+body {
+  color: $text-color;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+}
+
+//== Headings
+//
+//##
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-headings;
+  font-weight: 700;
+}
+h1 {
+  font-size: $font-size-h1;
+  letter-spacing: 5px;
+}
+h2 {
+  font-size: $font-size-h2;
+  letter-spacing: 2px;
+}
+h3 {
+  font-size: $font-size-h3;
+}
