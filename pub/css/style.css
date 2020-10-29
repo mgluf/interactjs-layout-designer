@@ -22,14 +22,31 @@ h2 {
 h3 {
   font-size: 1.2rem; }
 
-.resize-drag {
-  width: 120px;
-  padding: 20px;
-  margin: 1rem;
-  background-color: #29e;
-  color: white;
-  font-size: 20px;
-  font-family: sans-serif;
+.resizable {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #aaf;
+  padding: 1em;
+  border-radius: 5px;
+  margin: 3em;
+  box-sizing: border-box;
   touch-action: none;
-  /* This makes things *much* easier */
-  box-sizing: border-box; }
+  user-select: none; }
+
+.resize-handle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: blue;
+  right: 0;
+  bottom: 0; }
+
+#resize-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 1500px;
+  height: 1400px;
+  background-color: #eee;
+  touch-action: manipulation; }
