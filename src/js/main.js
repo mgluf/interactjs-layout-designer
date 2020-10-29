@@ -9,7 +9,7 @@ interact('.draggable')
   .draggable({
     listeners: {
       start (event) {
-        console.log(event.type, event.target)
+        console.log(event.type, position)
         
       },
       move (event) {
@@ -21,7 +21,7 @@ interact('.draggable')
       },
 
       end () {
-        console.log(position);
+        console.log(event.type, position);
       },
 
     }
