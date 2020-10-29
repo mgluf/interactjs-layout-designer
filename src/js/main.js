@@ -30,10 +30,10 @@ interact('.draggable')
 interact('.resizable')
 .resizable({
   edges: {
-    top: ".resize-top",
-    left: ".resize-left",
-    bottom: ".resize-bottom",
-    right: ".resize-right",
+    top: true,
+    right: true,
+    bottom: true,
+    left: true,
   },
 })
 .on('resizemove', event => {
