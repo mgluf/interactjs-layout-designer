@@ -1,52 +1,81 @@
 const interact = require('interactjs')
 
 
-// dragable
-const position = { x: 0, y: 0 }
-
-
-interact('.draggable')
+interact('.resizable')
   .draggable({
-    listeners: {
+
+    listeners:{
       start (event) {
-        console.log(event.type, position)
+        console.log(event.type,"on","[",event.target.id,"]","x:",event.target.getAttribute("data-x"),"y:",event.target.getAttribute("data-y"));
         
       },
-      move (event) {
-        position.x += event.dx
-        position.y += event.dy
 
-        event.target.style.transform =
-          `translate(${position.x}px, ${position.y}px)`
+      end (event) {
+        console.log(event.type,"on","[",event.target.id,"]","x:",event.target.getAttribute("data-x"),"y:",event.target.getAttribute("data-y"));
+      },
+  }
+
+  })
+  .resizable({
+    listeners:{
+      start(event){
+        console.info(event.type,"on","[",event.target.id,"]");
       },
 
-      end () {
-        console.log(event.type, position);
-      },
+      end(event){
+        console.info(event.type,"on","[",event.target.id,"]");
+      }
 
+    },
+    preserveAspectRatio: false,
+    edges: {
+      left: true,
+      right: '.resize-handle',
+      bottom: '.resize-handle',
+      top: true
     }
-})
 
-interact('.resizable')
-.resizable({
-  edges: {
-    top: true,
-    right: true,
-    bottom: true,
-    left: true,
-  },
-})
-.on('resizemove', event => {
-  let { x, y } = event.target.dataset
+  })
+  .on('dragstart', function (event) {
+    event.preventDefault();
+  })
+  .on('dragmove', dragMoveListener )
 
-  x = parseFloat(x) || 0
-  y = parseFloat(y) || 0
+  .on('resizemove', function(event) {
+    var target = event.target,
+      x = (parseFloat(target.getAttribute('data-x')) || 0),
+      y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-  Object.assign(event.target.style, {
-    width: `${event.rect.width}px`,
-    height: `${event.rect.height}px`,
-    transform: `translate(${event.deltaRect.left}px, ${event.deltaRect.top}px)`
+    // update the element's style
+    target.style.width = event.rect.width + 'px';
+    target.style.height = event.rect.height + 'px';
+
+    // translate when resizing from top or left edges
+    x += event.deltaRect.left;
+    y += event.deltaRect.top;
+
+    target.style.webkitTransform = target.style.transform =
+      'translate(' + x + 'px,' + y + 'px)';
+
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+
   })
 
-  Object.assign(event.target.dataset, { x, y })
-})
+
+function dragMoveListener(event) {
+  var target = event.target,
+    // keep the dragged position in the data-x/data-y attributes
+    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+  // translate the element
+  target.style.webkitTransform =
+    target.style.transform =
+    'translate(' + x + 'px, ' + y + 'px)';
+
+  // update the posiion attributes
+  target.setAttribute('data-x', x);
+  target.setAttribute('data-y', y);
+  
+}

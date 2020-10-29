@@ -22,25 +22,31 @@ h2 {
 h3 {
   font-size: 1.2rem; }
 
-.box {
-  margin: 1rem;
-  padding: 0;
-  min-height: 18px;
-  min-width: 18px;
-  height: 300px;
-  width: 300px;
-  background-color: aqua; }
-
 .resizable {
-  cursor: default;
-  position: relative; }
-
-.draggable {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #aaf;
+  padding: 1em;
+  border-radius: 5px;
+  margin: 3em;
+  box-sizing: border-box;
   touch-action: none;
-  user-select: none;
-  box-sizing: border-box; }
+  user-select: none; }
 
-.resizable {
-  touch-action: none;
-  user-select: none;
-  box-sizing: border-box; }
+.resize-handle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: blue;
+  right: 0;
+  bottom: 0; }
+
+#resize-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+  touch-action: manipulation; }
