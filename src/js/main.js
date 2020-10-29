@@ -2,8 +2,31 @@ const interact = require('interactjs')
 
 
 interact('.resizable')
-  .draggable({})
+  .draggable({
+
+    listeners:{
+      start (event) {
+        console.log(event.type,"on","[",event.target.id,"]","x:",event.target.getAttribute("data-x"),"y:",event.target.getAttribute("data-y"));
+        
+      },
+
+      end (event) {
+        console.log(event.type,"on","[",event.target.id,"]","x:",event.target.getAttribute("data-x"),"y:",event.target.getAttribute("data-y"));
+      },
+  }
+
+  })
   .resizable({
+    listeners:{
+      start(event){
+        console.info(event.type,"on","[",event.target.id,"]");
+      },
+
+      end(event){
+        console.info(event.type,"on","[",event.target.id,"]");
+      }
+
+    },
     preserveAspectRatio: false,
     edges: {
       left: true,
@@ -11,14 +34,13 @@ interact('.resizable')
       bottom: '.resize-handle',
       top: true
     }
+
   })
   .on('dragstart', function (event) {
     event.preventDefault();
   })
-  .on('dragmove', dragMoveListener)
-  .on('resizestart', function(event) {
-    console.info(event.type);
-  })
+  .on('dragmove', dragMoveListener )
+
   .on('resizemove', function(event) {
     var target = event.target,
       x = (parseFloat(target.getAttribute('data-x')) || 0),
@@ -38,11 +60,7 @@ interact('.resizable')
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 
-
   })
-  .on ('resizeend'), function(event){
-    console.log(event.type);
-  };
 
 
 function dragMoveListener(event) {
@@ -59,4 +77,5 @@ function dragMoveListener(event) {
   // update the posiion attributes
   target.setAttribute('data-x', x);
   target.setAttribute('data-y', y);
+  
 }
