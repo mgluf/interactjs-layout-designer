@@ -43,6 +43,7 @@ const snap = interact.modifiers.snap({
   relativePoints: [{ x: 1, y: 1 }],
 })
 
+//add to 'aspectRatio' to .resizable modifers to enable
 const aspectRatio = interact.modifiers.aspectRatio({
   ratio: 1,
   modifiers: [
@@ -78,7 +79,7 @@ interact('.resizable')
 
   })
   .resizable({
-    modifiers: [snap, aspectRatio],
+    modifiers: [snap],
     
     // listeners:{
     //   start(event){
