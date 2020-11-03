@@ -38,15 +38,12 @@ h3 {
 
 .canvasElement {
   position: absolute;
-  width: 100px;
-  height: 100px;
   background-color: #aaf;
-  padding: 1em;
-  border-radius: 5px;
   margin: 3em;
   box-sizing: border-box; }
 
 .resizable {
+  border: 2px solid blue;
   touch-action: none;
   user-select: none; }
 
@@ -60,3 +57,8 @@ h3 {
 
 .hide {
   visibility: hidden; }
+
+img {
+  display: block;
+  max-width: 100%;
+  /* This rule is very important, please don't ignore this */ }

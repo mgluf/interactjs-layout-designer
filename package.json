@@ -28,6 +28,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "cropperjs": "^1.5.9",
     "interactjs": "^1.10.0",
     "node-sass": "^4.14.1"
   }

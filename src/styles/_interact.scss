@@ -17,17 +17,13 @@
 
 .canvasElement{
   position: absolute;
-  width: 100px;
-  height: 100px;
   background-color: #aaf;
-  padding: 1em;
-  border-radius: 5px;
   margin: 3em;
   box-sizing: border-box;
 }
 
 .resizable {
-
+  border: 2px solid blue;
   touch-action: none;
   user-select: none;
 }
