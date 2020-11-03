@@ -10,14 +10,13 @@
 
 
 //get all image dimensions
-
   let canvasImages = Array.from(
     document.querySelectorAll('.canvasElement > img')
     );
   
   canvasImages.forEach(child => child.onload = function(){ // wait to read image dimensions until they load.
-    let imgAspect = child.naturalWidth/child.naturalHeight;
-    console.log(child.parentElement.id, "x: "+child.naturalWidth, "y: "+child.naturalHeight, imgAspect)
+    let imgAspect = //img aspect ratio ;
+    console.log(child.parentElement.id, "x: "+child.naturalWidth, "y: "+child.naturalHeight)
   }
     
     )
