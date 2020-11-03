@@ -1,16 +1,35 @@
 // =================================================================================
-// EDIT LAYOUT MODE
-// built using interact.js
-// https://interactjs.io/docs/
+//  EDIT LAYOUT MODE
+//  built using interact.js
+//  https://interactjs.io/docs/
+//
+//  FIXME: restrict resize to canvas
+//
 // =================================================================================
 
-//FIXME: restrict resize to canvas
 
+
+//get all image dimensions
+
+  let canvasImages = Array.from(
+    document.querySelectorAll('.canvasElement > img')
+    );
+  
+  canvasImages.forEach(child => child.onload = function(){ // wait to read image dimensions until they load.
+    let imgAspect = child.naturalWidth/child.naturalHeight;
+    console.log(child.parentElement.id, "x: "+child.naturalWidth, "y: "+child.naturalHeight, imgAspect)
+  }
+    
+    )
+
+
+
+
+// Edit Layout Button
 import editLayout from './editLayout'
-
 document.getElementById("editLayoutButton").addEventListener("click", editLayout);
 
-
+//interactjs import
 const interact = require('interactjs')
 
 // create a restrict modifier to prevent dragging an element out of the canvas
@@ -21,8 +40,15 @@ const restrictToCanvas = interact.modifiers.restrict({
 
 // create a snap modifier which changes the event coordinates to the closest corner of a grid
 const snap = interact.modifiers.snap({
-  targets: [interact.snappers.grid({ x: 50, y: 50 })],
+  targets: [interact.snappers.grid({ x: 50, y: 50 })], //I have a defined canvas size to ensure grid snapping works fairly consistently
   relativePoints: [{ x: 1, y: 1 }],
+})
+
+const aspectRatio = interact.modifiers.aspectRatio({
+  ratio: 3/2,
+  modifiers: [
+    interact.modifiers.restrictSize({ max: 'parent' })
+  ]
 })
 
 interact('.resizable')
@@ -30,58 +56,59 @@ interact('.resizable')
     origin: 'parent',
     modifiers: [restrictToCanvas, snap],
 
-    listeners:{
-      start (event) {
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-          }
-          ));
+  //   listeners:{
+  //     start (event) {
+  //       console.log(
+  //         JSON.stringify({
+  //           eventType: event.type,
+  //           objectID: event.target.id,
+  //         }
+  //         ));
 
-      },
+  //     },
 
-      end (event) {
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-          }
-          ));
-      },
-  }
+  //     end (event) {
+  //       console.log(
+  //         JSON.stringify({
+  //           eventType: event.type,
+  //           objectID: event.target.id,
+  //         }
+  //         ));
+  //     },
+  // }
 
   })
   .resizable({
-    modifiers: [snap],
-    listeners:{
-      start(event){
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-            size:{
-              x: event.target.style.width,
-              y: event.target.style.height
-            }
-          }
-          ));
-      },
+    modifiers: [snap, aspectRatio],
+    
+    // listeners:{
+    //   start(event){
+    //     console.log(
+    //       JSON.stringify({
+    //         eventType: event.type,
+    //         objectID: event.target.id,
+    //         size:{
+    //           x: event.target.style.width,
+    //           y: event.target.style.height
+    //         }
+    //       }
+    //       ));
+    //   },
 
-      end(event){
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-            size:{
-              x: event.target.style.width,
-              y: event.target.style.height
-            }
-          }
-          ));
-      }
+    //   end(event){
+    //     console.log(
+    //       JSON.stringify({
+    //         eventType: event.type,
+    //         objectID: event.target.id,
+    //         size:{
+    //           x: event.target.style.width,
+    //           y: event.target.style.height
+    //         }
+    //       }
+    //       ));
+    //   }
 
-    },
+    // },
     preserveAspectRatio: false,
     edges: {
       left: true,
