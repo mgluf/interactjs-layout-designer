@@ -1,6 +1,21 @@
+.nav{
+  padding: 1rem;
+  background: darkgrey;
+}
 
 
-.resizable {
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000px;
+  height: 600px;
+  background-color: #eee;
+  touch-action: manipulation;
+  overflow: hidden;
+}
+
+.canvasElement{
   position: absolute;
   width: 100px;
   height: 100px;
@@ -8,8 +23,11 @@
   padding: 1em;
   border-radius: 5px;
   margin: 3em;
-  
   box-sizing: border-box;
+}
+
+.resizable {
+
   touch-action: none;
   user-select: none;
 }
@@ -23,14 +41,7 @@
   bottom: 0;
 }
 
-
-#canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 75vw;
-  height: 50vh;
-  background-color: #eee;
-  touch-action: manipulation;
-  overflow: hidden;
+.hide{
+  visibility: hidden;
 }
+

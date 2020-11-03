@@ -22,7 +22,21 @@ h2 {
 h3 {
   font-size: 1.2rem; }
 
-.resizable {
+.nav {
+  padding: 1rem;
+  background: darkgrey; }
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000px;
+  height: 600px;
+  background-color: #eee;
+  touch-action: manipulation;
+  overflow: hidden; }
+
+.canvasElement {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -30,7 +44,9 @@ h3 {
   padding: 1em;
   border-radius: 5px;
   margin: 3em;
-  box-sizing: border-box;
+  box-sizing: border-box; }
+
+.resizable {
   touch-action: none;
   user-select: none; }
 
@@ -42,12 +58,5 @@ h3 {
   right: 0;
   bottom: 0; }
 
-#canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 75vw;
-  height: 50vh;
-  background-color: #eee;
-  touch-action: manipulation;
-  overflow: hidden; }
+.hide {
+  visibility: hidden; }

@@ -1,16 +1,28 @@
+// =================================================================================
+// EDIT LAYOUT MODE
+// built using interact.js
+// https://interactjs.io/docs/
+// =================================================================================
+
+//FIXME: restrict resize to canvas
+
+import editLayout from './editLayout'
+
+document.getElementById("editLayoutButton").addEventListener("click", editLayout);
+
+
 const interact = require('interactjs')
 
-// create a restrict modifier to prevent dragging an element out of its parent
+// create a restrict modifier to prevent dragging an element out of the canvas
 const restrictToCanvas = interact.modifiers.restrict({
   restriction: 'parent',
-  elementRect: { left: 0, right: 1, top: 0, bottom: 1 },
+  elementRect: { left: 0, right: 1, top: 0, bottom: 1 }, //can alter this to create a 'margin' restriction
 })
 
-// create a snap modifier which changes the event coordinates to the closest
-// corner of a grid
+// create a snap modifier which changes the event coordinates to the closest corner of a grid
 const snap = interact.modifiers.snap({
   targets: [interact.snappers.grid({ x: 50, y: 50 })],
-  relativePoints: [{ x: 0.5, y: 0.5 }],
+  relativePoints: [{ x: 1, y: 1 }],
 })
 
 interact('.resizable')
@@ -24,10 +36,6 @@ interact('.resizable')
           JSON.stringify({
             eventType: event.type,
             objectID: event.target.id,
-            position:{
-              x: event.target.getAttribute("data-x"),
-              y: event.target.getAttribute("data-y")
-            }
           }
           ));
 
@@ -38,10 +46,6 @@ interact('.resizable')
           JSON.stringify({
             eventType: event.type,
             objectID: event.target.id,
-            position:{
-              x: event.target.getAttribute("data-x"),
-              y: event.target.getAttribute("data-y")
-            }
           }
           ));
       },
@@ -143,3 +147,8 @@ interact('.resizeable').draggable({
     })
   ]
 })
+
+// =================================================================================
+// IMAGE CROPPING
+// 
+// =================================================================================
