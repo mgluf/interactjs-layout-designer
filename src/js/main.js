@@ -44,7 +44,7 @@ const snap = interact.modifiers.snap({
 })
 
 const aspectRatio = interact.modifiers.aspectRatio({
-  ratio: 3/2,
+  ratio: 1,
   modifiers: [
     interact.modifiers.restrictSize({ max: 'parent' })
   ]
