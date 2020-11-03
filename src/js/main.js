@@ -1,29 +1,80 @@
 const interact = require('interactjs')
 
+// create a restrict modifier to prevent dragging an element out of its parent
+const restrictToCanvas = interact.modifiers.restrict({
+  restriction: 'parent',
+  elementRect: { left: 0, right: 1, top: 0, bottom: 1 },
+})
+
+// create a snap modifier which changes the event coordinates to the closest
+// corner of a grid
+const snap = interact.modifiers.snap({
+  targets: [interact.snappers.grid({ x: 50, y: 50 })],
+  relativePoints: [{ x: 0.5, y: 0.5 }],
+})
 
 interact('.resizable')
   .draggable({
+    origin: 'parent',
+    modifiers: [restrictToCanvas, snap],
 
     listeners:{
       start (event) {
-        console.log(event.type,"on","[",event.target.id,"]","x:",event.target.getAttribute("data-x"),"y:",event.target.getAttribute("data-y"));
-        
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+            position:{
+              x: event.target.getAttribute("data-x"),
+              y: event.target.getAttribute("data-y")
+            }
+          }
+          ));
+
       },
 
       end (event) {
-        console.log(event.type,"on","[",event.target.id,"]","x:",event.target.getAttribute("data-x"),"y:",event.target.getAttribute("data-y"));
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+            position:{
+              x: event.target.getAttribute("data-x"),
+              y: event.target.getAttribute("data-y")
+            }
+          }
+          ));
       },
   }
 
   })
   .resizable({
+    modifiers: [snap],
     listeners:{
       start(event){
-        console.info(event.type,"on","[",event.target.id,"]");
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+            size:{
+              x: event.target.style.width,
+              y: event.target.style.height
+            }
+          }
+          ));
       },
 
       end(event){
-        console.info(event.type,"on","[",event.target.id,"]");
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+            size:{
+              x: event.target.style.width,
+              y: event.target.style.height
+            }
+          }
+          ));
       }
 
     },
@@ -79,3 +130,16 @@ function dragMoveListener(event) {
   target.setAttribute('data-y', y);
   
 }
+
+interact('.resizeable').draggable({
+  modifiers: [
+    interact.modifiers.snap({
+      targets: [ { x: 300, y: 300 } ],
+      relativePoints: [
+        { x: 0  , y: 0   },   // snap relative to the element's top-left,
+        { x: 0.5, y: 0.5 },   // to the center
+        { x: 1  , y: 1   }    // and to the bottom-right
+      ]
+    })
+  ]
+})

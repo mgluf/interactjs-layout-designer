@@ -1,4 +1,5 @@
 
+
 .resizable {
   position: absolute;
   width: 100px;
@@ -23,12 +24,13 @@
 }
 
 
-#resize-container {
+#canvas {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 75vw;
+  height: 50vh;
   background-color: #eee;
   touch-action: manipulation;
+  overflow: hidden;
 }
