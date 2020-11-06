@@ -2,6 +2,29 @@
 html {
   background-color: #fff; }
 
+.nav {
+  padding: 1rem;
+  background: darkgrey; }
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+  touch-action: manipulation;
+  overflow: hidden; }
+
+.canvasElement {
+  position: absolute;
+  display: grid;
+  margin: 3em;
+  box-sizing: border-box; }
+
+.canvasElement img {
+  width: 100%; }
+
 body {
   color: #000;
   font-family: "Work Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -22,32 +45,11 @@ h2 {
 h3 {
   font-size: 1.2rem; }
 
-.nav {
-  padding: 1rem;
-  background: darkgrey; }
-
-#canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1000px;
-  height: 600px;
-  background-color: #eee;
-  touch-action: manipulation;
-  overflow: hidden; }
-
-.canvasElement {
-  position: absolute;
-  margin: 3em;
-  box-sizing: border-box; }
-
-.canvasElement img {
-  width: 100%; }
-
 .resizable {
-  border: 2px solid blue;
+  border: 1px solid lightgrey;
   touch-action: none;
-  user-select: none; }
+  user-select: none;
+  display: grid; }
 
 .resize-handle {
   position: absolute;
@@ -60,7 +62,13 @@ h3 {
 .hide {
   visibility: hidden; }
 
-img {
+.crop-container {
+  overflow: hidden;
+  border: 2px solid lightblue; }
+
+.crop-container img {
   display: block;
   max-width: 100%;
-  /* This rule is very important, please don't ignore this */ }
+  /* This rule is very important, please don't ignore this */
+  touch-action: none;
+  border: none; }

@@ -1,4 +1,11 @@
-img{  
+.crop-container{
+  overflow: hidden;
+  border: 2px solid lightblue;
+}
+
+.crop-container img{  
   display: block;
   max-width: 100%;/* This rule is very important, please don't ignore this */
+  touch-action: none;
+  border: none;
 }

@@ -1,11 +1,31 @@
 // =================================================================================
 //  EDIT LAYOUT MODE
+//
 //  built using interact.js
 //  https://interactjs.io/docs/
 //
 //  FIXME: restrict resize to canvas
+//  FIXME: snap resize div to img
 //
 // =================================================================================
+
+
+//store clicked canvasElement data
+var elements = document.getElementsByClassName("canvasElement");
+var clickedElement = 0
+var clickElement = function(clickedElement) {
+    clickedElement = this;
+    console.log("clicked "+clickedElement.id);
+    return clickedElement;
+};
+
+for (var i = 0; i < elements.length; i++) {
+    elements[i].addEventListener('click', clickElement, false);
+}
+
+//store canvas dimensions
+let canvas = document.getElementById('canvas');
+
 
 // enter edit layout mode by adding 'resizeable' class to all elements with class='canvasElement'
 
@@ -19,37 +39,52 @@ export default function editLayout() {
     editLayoutButton.innerHTML = "Edit Layout";
   }
 
-  let canvasElements = Array.from(document.querySelectorAll('.canvasElement'));
+  let toggleDragResize = Array.from(document.querySelectorAll('.canvasElement'));
   let resizeHandles = Array.from(document.querySelectorAll('.resize-handle'));
+  let toggleCrop = Array.from(document.querySelectorAll('.crop-container > img'));
 
-  canvasElements.forEach(child => child.classList.toggle('resizable'));
+
+  toggleDragResize.forEach(child => child.classList.toggle('resizable'));
   resizeHandles.forEach(child => child.classList.toggle('hide'));
+  toggleCrop.forEach(child => child.classList.toggle('cropper'));
 
   }
+
+// =================================================================================
+// Interact.js
+// =================================================================================
 
 //interactjs import
 const interact = require('interactjs')
 
-
-
-// create a restrict modifier to prevent dragging an element out of the canvas
+// prevent dragging an element out of the canvas
 const restrictToCanvas = interact.modifiers.restrict({
   restriction: 'parent',
-  elementRect: { left: 0, right: 1, top: 0, bottom: 1 }, //can alter this to create a 'margin' restriction
+  elementRect: { left: 0, right: 1, top: 0, bottom: 1 },
 })
 
-// create a snap modifier which changes the event coordinates to the closest corner of a grid
+// snap event coordinates to the closest corner of a grid
 const snap = interact.modifiers.snap({
-  targets: [interact.snappers.grid({ x: 50, y: 50 })], //I have a defined canvas size to ensure grid snapping works fairly consistently
-  relativePoints: [{ x: 1, y: 1 }],
+  targets: [
+    interact.snappers.grid(
+      { x: canvas.offsetWidth/25, y: canvas.offsetHeight/25 })
+    ],
+  relativePoints: [{ x: .5, y: .5 }],
 })
 
-//add to 'aspectRatio' to .resizable modifers to enable
-const restrictResize = interact.modifiers.restrict({
-  restriction: interact.resizable
-
+const minMaxSize = interact.modifiers.restrictSize({
+        min: { width: 50, height: 50 },
+        max: { width: canvas.offsetWidth-50, height: canvas.offsetHeight-50 },
 })
 
+const aspectRatio = interact.modifiers.aspectRatio({
+  equalDelta: true,
+  modifiers: [
+    interact.modifiers.restrictSize({ max: 'parent' })
+  ]
+})
+
+//main interact function
 interact('.resizable')
   .draggable({
     origin: 'parent',
@@ -57,63 +92,29 @@ interact('.resizable')
 
     listeners:{
       start (event) {
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-          }
-          ));
-
+        console.log(JSON.stringify({eventType: event.type,objectID: event.target.id,}));
       },
-
       end (event) {
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-          }
-          ));
+        console.log(JSON.stringify({eventType: event.type,objectID: event.target.id,}));
       },
   }
 
   })
   .resizable({
-    modifiers: [snap, restrictResize],
+    modifiers: [snap, minMaxSize, aspectRatio],
     
     listeners:{
       start(event){
-
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-            size:{
-              x: event.target.style.width,
-              y: event.target.style.height
-            }
-          }
-          ));
+        console.log(JSON.stringify({eventType: event.type, objectID: event.target.id, size:{ x: event.target.style.width, y: event.target.style.height}}));
       },
 
       end(event){
-
-
-
-
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-            size:{
-              x: event.target.style.width,
-              y: event.target.style.height
-            }
-          }
-          ));
+        console.log(JSON.stringify({eventType: event.type, objectID: event.target.id, size:{ x: event.target.style.width, y: event.target.style.height}}));
       }
 
     },
-    preserveAspectRatio: false,
+
+    preserveAspectRatio: true,
     edges: {
       left: true,
       right: '.resize-handle',
@@ -167,16 +168,3 @@ function dragMoveListener(event) {
   target.setAttribute('data-y', y);
   
 }
-
-interact('.resizeable').draggable({
-  modifiers: [
-    interact.modifiers.snap({
-      targets: [ { x: 300, y: 300 } ],
-      relativePoints: [
-        { x: 0  , y: 0   },   // snap relative to the element's top-left,
-        { x: 0.5, y: 0.5 },   // to the center
-        { x: 1  , y: 1   }    // and to the bottom-right
-      ]
-    })
-  ]
-})

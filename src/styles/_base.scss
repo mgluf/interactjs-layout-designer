@@ -2,3 +2,30 @@
 html {
   background-color: $background;
 }
+
+.nav{
+  padding: 1rem;
+  background: darkgrey;
+}
+
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+  touch-action: manipulation;
+  overflow: hidden;
+}
+
+.canvasElement{
+  position: absolute;
+  display: grid;
+  margin: 3em;
+  box-sizing: border-box;
+}
+.canvasElement img{
+  width: 100%;
+}
