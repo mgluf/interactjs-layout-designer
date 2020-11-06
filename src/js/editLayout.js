@@ -30,6 +30,8 @@ export default function editLayout() {
 //interactjs import
 const interact = require('interactjs')
 
+
+
 // create a restrict modifier to prevent dragging an element out of the canvas
 const restrictToCanvas = interact.modifiers.restrict({
   restriction: 'parent',
@@ -43,11 +45,9 @@ const snap = interact.modifiers.snap({
 })
 
 //add to 'aspectRatio' to .resizable modifers to enable
-const aspectRatio = interact.modifiers.aspectRatio({
-  ratio: 1,
-  modifiers: [
-    interact.modifiers.restrictSize({ max: 'parent' })
-  ]
+const restrictResize = interact.modifiers.restrict({
+  restriction: interact.resizable
+
 })
 
 interact('.resizable')
@@ -55,59 +55,64 @@ interact('.resizable')
     origin: 'parent',
     modifiers: [restrictToCanvas, snap],
 
-  //   listeners:{
-  //     start (event) {
-  //       console.log(
-  //         JSON.stringify({
-  //           eventType: event.type,
-  //           objectID: event.target.id,
-  //         }
-  //         ));
+    listeners:{
+      start (event) {
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+          }
+          ));
 
-  //     },
+      },
 
-  //     end (event) {
-  //       console.log(
-  //         JSON.stringify({
-  //           eventType: event.type,
-  //           objectID: event.target.id,
-  //         }
-  //         ));
-  //     },
-  // }
+      end (event) {
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+          }
+          ));
+      },
+  }
 
   })
   .resizable({
-    modifiers: [snap],
+    modifiers: [snap, restrictResize],
     
-    // listeners:{
-    //   start(event){
-    //     console.log(
-    //       JSON.stringify({
-    //         eventType: event.type,
-    //         objectID: event.target.id,
-    //         size:{
-    //           x: event.target.style.width,
-    //           y: event.target.style.height
-    //         }
-    //       }
-    //       ));
-    //   },
+    listeners:{
+      start(event){
 
-    //   end(event){
-    //     console.log(
-    //       JSON.stringify({
-    //         eventType: event.type,
-    //         objectID: event.target.id,
-    //         size:{
-    //           x: event.target.style.width,
-    //           y: event.target.style.height
-    //         }
-    //       }
-    //       ));
-    //   }
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+            size:{
+              x: event.target.style.width,
+              y: event.target.style.height
+            }
+          }
+          ));
+      },
 
-    // },
+      end(event){
+
+
+
+
+        console.log(
+          JSON.stringify({
+            eventType: event.type,
+            objectID: event.target.id,
+            size:{
+              x: event.target.style.width,
+              y: event.target.style.height
+            }
+          }
+          ));
+      }
+
+    },
     preserveAspectRatio: false,
     edges: {
       left: true,
@@ -123,6 +128,8 @@ interact('.resizable')
   .on('dragmove', dragMoveListener )
 
   .on('resizemove', function(event) {
+
+
     var target = event.target,
       x = (parseFloat(target.getAttribute('data-x')) || 0),
       y = (parseFloat(target.getAttribute('data-y')) || 0);
