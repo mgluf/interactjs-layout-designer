@@ -33,6 +33,7 @@ var drageAndResize =  interact('.resizable')
   }
 
   })
+
   .on('dragstart', function (event) {
     event.preventDefault();
   })
