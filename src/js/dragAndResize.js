@@ -20,33 +20,9 @@ var drageAndResize =  interact('.resizable')
   .resizable({
     modifiers: [restrictToCanvas],
     listeners:{
-      start(event){
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-            size:{
-              x: event.target.style.width,
-              y: event.target.style.height
-            }
-          }
-          ));
-      },
+      start(event){ },
+      end(event){ },
 
-      end(event){
-        console.log(
-          JSON.stringify({
-            eventType: event.type,
-            objectID: event.target.id,
-            size:{
-              x: event.target.style.width,
-              y: event.target.style.height
-            }
-          }
-          ));
-      }
-
-    },
     preserveAspectRatio: false,
     edges: {
       left: true,
@@ -54,6 +30,7 @@ var drageAndResize =  interact('.resizable')
       bottom: true,
       top: true
     }
+  }
 
   })
   .on('dragstart', function (event) {

@@ -11,7 +11,6 @@ var windowHeight;
   let  vhElements = Array.from(document.getElementsByClassName('100vh'))
 
   vwElements.forEach(child => {
-    console.log('hello')
     child.style.width = `calc(100vw - ${scrollbarWidth}px)`
   });
 
@@ -27,3 +26,14 @@ var windowHeight;
 //
 //==================================
 
+var elements = document.getElementsByClassName("canvasElement");
+var clickedElement = 'none'
+var clickElement = function(clickedElement) {
+    clickedElement = this;
+    console.log("clicked "+clickedElement.id);
+    return clickedElement;
+};
+
+for (var i = 0; i < elements.length; i++) {
+    elements[i].addEventListener('click', clickElement, false);
+}
