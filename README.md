@@ -1,7 +1,7 @@
 # interactjs-layout-designer
 Super basic interact.js layout designer hobby project.
 
-##Check it Out
+## Check it Out
 
 1. Fork / Clone the Repo
 2. Have [Node.js](https://nodejs.org/en/) installed and run `npm install` in the project root.
