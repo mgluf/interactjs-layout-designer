@@ -21,7 +21,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-flow: row nowrap;
   padding: 10px;
-  height: 5vh;
+  height: 50px;
   background: darkgrey;
   box-sizing: border-box;
   max-width: 100%;
@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #eee;
   touch-action: manipulation;
   box-sizing: border-box;
-  height: calc(100vh - 5vh);
+  height: calc(100vh - 50px);
   max-width: 100%;
   max-height: 100%; }
 

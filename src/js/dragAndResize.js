@@ -1,4 +1,3 @@
-const GulpClient = require('gulp');
 const interact = require('interactjs')
 
 // create a restrict modifier to prevent dragging an element out of the canvas
