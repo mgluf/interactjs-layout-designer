@@ -1,3 +1,4 @@
+const GulpClient = require('gulp');
 const interact = require('interactjs')
 
 // create a restrict modifier to prevent dragging an element out of the canvas
@@ -19,9 +20,13 @@ var drageAndResize =  interact('.resizable')
 
   .resizable({
     modifiers: [restrictToCanvas],
+    
     listeners:{
-      start(event){ },
-      end(event){ },
+      start(event){},
+
+      end(event){}
+
+    },
 
     preserveAspectRatio: false,
     edges: {
@@ -30,16 +35,16 @@ var drageAndResize =  interact('.resizable')
       bottom: true,
       top: true
     }
-  }
 
   })
-
   .on('dragstart', function (event) {
     event.preventDefault();
   })
   .on('dragmove', dragMoveListener )
 
   .on('resizemove', function(event) {
+
+
     var target = event.target,
       x = (parseFloat(target.getAttribute('data-x')) || 0),
       y = (parseFloat(target.getAttribute('data-y')) || 0);
@@ -77,16 +82,3 @@ function dragMoveListener(event) {
   target.setAttribute('data-y', y);
   
 }
-
-interact('.resizeable').draggable({
-  modifiers: [
-    interact.modifiers.snap({
-      targets: [ { x: 300, y: 300 } ],
-      relativePoints: [
-        { x: 0  , y: 0   },   // snap relative to the element's top-left,
-        { x: 0.5, y: 0.5 },   // to the center
-        { x: 1  , y: 1   }    // and to the bottom-right
-      ]
-    })
-  ]
-})
